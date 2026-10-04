@@ -1,4 +1,3 @@
-
 <!-- Define o documento como HTML5 moderno -->
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -391,4 +390,176 @@
         <!-- ABA CONTATO VENDEDOR -->
         <div class="product-card contato contato-wrapper">
             <div class="contact-box-center">
-                <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagemcontatovendedor.png" class="photo-leaf" alt="Ven
+                <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagemcontatovendedor.png" class="photo-leaf" alt="Vendedor">
+                <h1 class="pink-title">SUPORTE & VENDAS</h1>
+                <h2 class="yellow-name">RODOLFO FRANCO</h2>
+                <p class="contact-info-text">
+                    📌 Atenção: Para você tirar qualquer dúvida sobre o Robô. Entre em contato com o vendedor clicando no BOTÃO de WHATSAPP abaixo & me envie uma mensagem de texto!!! 📌
+                </p>
+                <button onclick="abrirLinkExterno('https://chat.whatsapp.com/BVoHSuGT69T3qj1MaGOBTn?s=cl&p=a&ilr=1&amv=2');" class="btn-wa-neon-black">
+                    <i class="fab fa-whatsapp" style="font-size: 35px; margin-right: 15px;"></i> CHAMAR NO WHATSAPP AGORA
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RODAPÉS -->
+    <footer>
+        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/rodapemercadopago.png" alt="Mercado Pago" class="footer-gif">
+        <p>PAGAMENTO SEGURO VIA MERCADO PAGO</p>
+    </footer>
+
+    <footer>
+        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/refs/heads/main/imagens/imgagradecimento.gif" alt="Agradecimento" class="footer-gif">
+        <p>🙏🌹 AGRADECIMENTO & BONS TRADES 🌹🙏</p>
+    </footer>
+
+    <!-- MODAL DETALHES -->
+    <div id="product-detail-view">
+        <div class="detail-content">
+            <span class="btn-close-detail" onclick="fecharDetalhes()">&times;</span>
+            <img id="det-img" src="" class="detail-img">
+            <h2 id="det-title" class="detail-title"></h2>
+            <p id="det-desc" class="detail-desc"></p>
+            <span id="det-price" class="detail-price"></span>
+            
+            <div style="width: 100%; display: flex; flex-direction: column; gap: 12px;">
+                <button id="det-pay-btn" class="btn-style btn-pay" style="height:75px; font-size:24px;" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR AGORA</button>
+                <button id="det-add-btn" class="btn-style btn-add" style="height:65px; font-size:22px;">ADICIONAR AO CARRINHO</button>
+                <button class="btn-style btn-back-shop" onclick="fecharDetalhes()">VOLTAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ICONE DO CARRINHO -->
+    <div id="cart-icon" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <div id="cart-count">0</div>
+    </div>
+
+    <!-- MODAL DO CARRINHO -->
+    <div id="cart-modal">
+        <div class="cart-content">
+            <h2 style="color: var(--verde-neon)">CARRINHO DE COMPRAS</h2>
+            <div class="alerta-pagamento">⚠️ Atenção: Digite o valor do total de sua compra no campo do Mercado Pago para finalizar!!!</div>
+            <div id="cart-items-list" style="max-height: 300px; overflow-y: auto; text-align: center; margin-bottom: 20px;"></div>
+            <h3 style="font-size: 32px; border-top: 1px solid #333; padding-top: 15px;">TOTAL: <span id="cart-total" style="color: var(--verde-neon)">R$ 0,00</span></h3>
+            <button onclick="abrirLinkExterno('https://link.mercadopago.com.br/rfshockflyer');" class="btn-style btn-pay" style="height: 80px; font-size: 24px;">PAGAR AGORA</button>
+            <button class="btn-style btn-back-shop" style="margin-top: 15px;" onclick="toggleCart()">VOLTAR</button>
+        </div>
+    </div>
+
+    <script>
+        // ========================================================
+        // SCRIPT DO CARROSSEL DE DESLIZAMENTO (SEM PISCAR / SEM TELA PRETA)
+        // ========================================================
+        let slideAtual = 0;
+        let slideTimer;
+
+        function mostrarSlide(indice) {
+            const track = document.getElementById('carouselSlides');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+            if (!slides.length || !track) return;
+
+            if (indice >= slides.length) slideAtual = 0;
+            else if (indice < 0) slideAtual = slides.length - 1;
+            else slideAtual = indice;
+
+            // Desliza diretamente para a foto sem nunca expor o fundo preto
+            track.style.transform = `translateX(-${slideAtual * 100}%)`;
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === slideAtual);
+            });
+        }
+
+        function mudarSlide(direcao, event) {
+            if (event) event.stopPropagation(); // Impede de abrir o modal
+            mostrarSlide(slideAtual + direcao);
+            reiniciarTimerSlide();
+        }
+
+        function irParaSlide(indice, event) {
+            if (event) event.stopPropagation(); // Impede de abrir o modal
+            mostrarSlide(indice);
+            reiniciarTimerSlide();
+        }
+
+        function iniciarTimerSlide() {
+            slideTimer = setInterval(() => {
+                mostrarSlide(slideAtual + 1);
+            }, 4000); // Passa para a próxima imagem a cada 4 segundos
+        }
+
+        function reiniciarTimerSlide() {
+            clearInterval(slideTimer);
+            iniciarTimerSlide();
+        }
+
+        // Inicia a rotação automática ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            mostrarSlide(0);
+            iniciarTimerSlide();
+        });
+
+        // ========================================================
+        // DEMAIS FUNÇÕES DA LOJA E CARRINHO
+        // ========================================================
+        function switchTab(categoryId, element) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            document.querySelectorAll('.product-card').forEach(item => {
+                item.classList.remove('show');
+                if (item.classList.contains(categoryId)) item.classList.add('show');
+            });
+            window.scrollTo({ top: 400, behavior: 'smooth' });
+        }
+
+        function abrirDetalhes(nome, desc, preco, img) {
+            document.getElementById('det-title').innerText = nome;
+            document.getElementById('det-desc').innerText = desc;
+            document.getElementById('det-price').innerText = `R$ ${preco},00`;
+            document.getElementById('det-img').src = img;
+            document.getElementById('det-add-btn').onclick = function() { addNoCarrinho(nome, preco); };
+            document.getElementById('product-detail-view').style.display = 'block';
+        }
+
+        function fecharDetalhes() { 
+            document.getElementById('product-detail-view').style.display = 'none'; 
+        }
+
+        function addNoCarrinho(nome, preco) {
+            carrinho.push({nome, preco});
+            atualizarCarrinho();
+            alert(nome + " foi adicionado ao seu carrinho!");
+        }
+
+        function atualizarCarrinho() {
+            const list = document.getElementById('cart-items-list');
+            const totalEl = document.getElementById('cart-total');
+            const countEl = document.getElementById('cart-count');
+            list.innerHTML = "";
+            let total = 0;
+            carrinho.forEach((item, index) => {
+                total += item.preco;
+                list.innerHTML += `<div style="margin-bottom:12px; font-size:18px; border-bottom:1px solid #222; padding-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                    <span>${item.nome}</span> <span>R$ ${item.preco},00 <i class="fas fa-trash" onclick="removerItem(${index})" style="color:red; margin-left:15px; cursor:pointer"></i></span>
+                </div>`;
+            });
+            totalEl.innerText = `R$ ${total},00`;
+            countEl.innerText = carrinho.length;
+        }
+
+        function removerItem(index) {
+            carrinho.splice(index, 1);
+            atualizarCarrinho();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+    </script>
+</body>
+</html>
