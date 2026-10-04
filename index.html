@@ -22,6 +22,7 @@
             --rosa-neon: #ff00ff;        
             --laranja-neon: #ff8c00;     
             --azul-celeste: #00bfff;     
+            --azul-ciano: #00ffff;
             --azul-escuro-navy: #000050; 
             --preto: #000000;            
             --fundo-card: #0d0d0d;       
@@ -50,11 +51,17 @@
             background: linear-gradient(-45deg, #000000, #4b0082, #001f3f, #000000);
             background-size: 400% 400%;
             animation: gradientBG 8s ease infinite;
-            padding: 20px;
+            padding: 25px 20px;
             border-bottom: 3px solid var(--verde-neon);
         }
 
-        .logo-img { width: 250px; filter: drop-shadow(0 0 10px var(--verde-neon)); }
+        /* LOGO COM ESPAÇO INFERIOR */
+        .logo-img { 
+            width: 250px; 
+            filter: drop-shadow(0 0 10px var(--verde-neon)); 
+            display: inline-block;
+            margin-bottom: 10px;
+        }
 
         .banner-unico-container {
             width: 1240px; margin: 20px auto; border: 5px solid var(--verde-neon);
@@ -109,9 +116,7 @@
             box-shadow: 0 0 45px rgba(255, 255, 0, 0.55); 
         }
 
-        /* ========================================================
-           CARROSSEL DE DESLIZAMENTO DIRETO (ZERO TELA PRETA)
-           ======================================================== */
+        /* CARROSSEL */
         .carousel-container {
             width: calc(100% + 80px); 
             margin: -40px -40px 25px -40px; 
@@ -123,7 +128,6 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
         }
 
-        /* Linha contínua onde as fotos ficam lado a lado */
         .carousel-slides {
             display: flex;
             width: 100%;
@@ -132,7 +136,6 @@
             will-change: transform;
         }
 
-        /* Cada slide ocupa 100% sem piscar */
         .carousel-slide {
             min-width: 100%;
             width: 100%;
@@ -143,7 +146,6 @@
             background: #111;
         }
 
-        /* SETAS DO CARROSSEL */
         .carousel-arrow {
             position: absolute;
             top: 50%;
@@ -175,7 +177,6 @@
         .carousel-arrow.prev { left: 15px; }
         .carousel-arrow.next { right: 15px; }
 
-        /* BOLINHAS INDICADORAS (DOTS - 7 PONTOS) */
         .carousel-dots {
             position: absolute;
             bottom: 15px;
@@ -205,9 +206,21 @@
         .card-single-bot h3 { 
             color: var(--amarelo); 
             font-size: 32px; 
-            margin: 10px 0; 
+            margin: 10px 0 5px 0; 
             line-height: 1.2;
         }
+
+        /* TEXTO AZUL CIANO ABAIXO DO TÍTULO */
+        .app-subtitulo {
+            color: var(--azul-ciano);
+            font-size: 26px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px var(--azul-ciano);
+            letter-spacing: 1px;
+            margin: 5px 0 15px 0;
+        }
+
         .card-single-bot .description { 
             font-size: 19px; 
             color: #ddd; 
@@ -217,14 +230,33 @@
             text-align: center;
             max-width: 600px;
         }
-        .price { display: block; font-size: 48px; color: var(--verde-neon); margin-bottom: 25px; font-weight: bold; }
 
-        /* LARGURA DOS BOTÕES */
+        /* TEXTO GRANDE DO VALOR EM CIMA DE CADA BOTÃO */
+        .price { 
+            display: block; 
+            font-size: 40px; 
+            color: var(--verde-neon); 
+            font-weight: bold; 
+            margin: 8px 0;
+            text-shadow: 0 0 15px var(--verde-neon);
+            letter-spacing: 0.5px;
+        }
+
+        /* LARGURA E ESTRUTURA DOS PLANOS */
         .btn-box { 
             width: 100%; 
             display: flex; 
             flex-direction: column; 
-            gap: 14px; 
+            gap: 20px; 
+            margin-top: 10px;
+        }
+
+        .plan-item {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
         }
 
         .btn-style { 
@@ -237,17 +269,16 @@
             font-family: Arial, sans-serif; 
             font-weight: bold; 
             text-transform: uppercase; 
-            font-size: 20px; 
+            font-size: 21px; 
             border: none; 
             cursor: pointer; 
             width: 100%; 
             transition: 0.3s; 
             box-sizing: border-box;
+            letter-spacing: 1px;
         }
         .btn-pay { background-color: var(--rosa-neon); color: #000; } 
-        .btn-add { background-color: var(--laranja-neon); color: #000; } 
         .btn-pay:hover { box-shadow: 0 0 25px var(--rosa-neon); }
-        .btn-add:hover { box-shadow: 0 0 25px var(--laranja-neon); }
 
         /* MODAL DE DETALHES */
         #product-detail-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5000; overflow-y: auto; padding: 50px 0; background: linear-gradient(-45deg, #000000, #1a0a2e, #4b0082, #001f3f, #000000); background-size: 400% 400%; animation: gradientBG 10s ease infinite; }
@@ -265,9 +296,8 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
         }
 
-        .detail-title { font-size: 36px; color: var(--amarelo); margin-bottom: 15px; }
-        .detail-desc { font-size: 22px; color: #ffffff; font-weight: bold; max-width: 650px; margin-bottom: 30px; line-height: 1.5; font-family: Arial, sans-serif; }
-        .detail-price { font-size: 50px; color: var(--verde-neon); font-weight: bold; margin-bottom: 30px; }
+        .detail-title { font-size: 36px; color: var(--amarelo); margin-bottom: 5px; }
+        .detail-desc { font-size: 22px; color: #ffffff; font-weight: bold; max-width: 650px; margin-bottom: 25px; line-height: 1.5; font-family: Arial, sans-serif; }
         .btn-back-shop { background-color: var(--azul-celeste); color: #000; height: 60px; font-size: 20px; }
 
         /* CONTATO VENDEDOR */
@@ -313,7 +343,8 @@
 
     <header>
         <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/logo.png" alt="Logo" class="logo-img">
-        <h1 style="color: var(--verde-neon); margin: 0; font-size: 34px;">🙏💰 ROBÔ SINAIS COMPRA & VENDA MERCADO FINANCEIRO (FOREX) 💰🙏</h1>
+        <!-- TÍTULO COM ESPAÇAMENTO (MARGIN-TOP DE 25px) -->
+        <h1 style="color: var(--verde-neon); margin: 25px 0 10px 0; font-size: 34px;">🙏💰 ROBÔ SINAIS COMPRA & VENDA MERCADO FINANCEIRO (FOREX) 💰🙏</h1>
     </header>
 
     <div class="banner-unico-container">
@@ -332,28 +363,15 @@
         <div class="product-card robo-trade show">
             <div class="card-single-bot" onclick="abrirDetalhes('Robô Sinais Compra & Venda Mercado Financeiro (FOREX)', 'Robô de Sinais Compra & Venda para Day Trade Mercado Financeiro Forex: Mostra os Melhores pontos de (Entrada, Take Proft & Stop LOSS & valores de Lotes), mostra as (Sessões de Londres, Nova York, Asiática) & os Melhores Ativos para Operar. Robô conta com Sistema de Voz Integrado que diz: (Atenção: Tendência!!!) & (Atenção: Reversão!!!) para quando o gráfico tá em TENDÊNCIA ou REVERTE a TENDÊNCIA!!!', 144, 'https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagemcontatovendedor.png')">
                 
-                <!-- CARROSSEL DE 7 IMAGENS (REPOSITÓRIO PADRONIZADO COM FALLBACK) -->
+                <!-- CARROSSEL DE 7 IMAGENS -->
                 <div class="carousel-container">
                     <div class="carousel-slides" id="carouselSlides">
-                        <!-- Imagem 1 (PNG) -->
                         <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem01.png" class="carousel-slide" alt="Tela 1 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
-                        
-                        <!-- Imagem 2 (PNG) -->
                         <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem02.png" class="carousel-slide" alt="Tela 2 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
-                        
-                        <!-- Imagem 3 (PNG) -->
                         <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem03.png" class="carousel-slide" alt="Tela 3 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
-
-                        <!-- Imagem 4 (PNG) -->
                         <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem04.png" class="carousel-slide" alt="Tela 4 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
-
-                        <!-- Imagem 5 (PNG) -->
                         <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem05.png" class="carousel-slide" alt="Tela 5 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
-
-                        <!-- Imagem 6 (PNG) -->
                         <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem06.png" class="carousel-slide" alt="Tela 6 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
-
-                        <!-- Imagem 7 (PNG) -->
                         <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem07.png" class="carousel-slide" alt="Tela 7 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
                     </div>
 
@@ -361,7 +379,7 @@
                     <button type="button" class="carousel-arrow prev" onclick="mudarSlide(-1, event)">&#10094;</button>
                     <button type="button" class="carousel-arrow next" onclick="mudarSlide(1, event)">&#10095;</button>
 
-                    <!-- Bolinhas indicadoras (7 Dots) -->
+                    <!-- Bolinhas indicadoras -->
                     <div class="carousel-dots">
                         <span class="dot active" onclick="irParaSlide(0, event)"></span>
                         <span class="dot" onclick="irParaSlide(1, event)"></span>
@@ -373,17 +391,37 @@
                     </div>
                 </div>
                 
+                <!-- TÍTULO AMARELO -->
                 <h3>Robô Sinais Compra & Venda Mercado Financeiro (FOREX)</h3>
+
+                <!-- TEXTO AZUL CIANO ABAIXO DO TÍTULO AMARELO -->
+                <div class="app-subtitulo">Aplicativo para Celulares Android</div>
+
                 <p class="description">
                     Robô de Sinais Compra & Venda para Day Trade Mercado Financeiro Forex: Mostra os Melhores pontos de (Entrada, Take Proft & Stop LOSS & valores de Lotes), mostra as (Sessões de Londres, Nova York, Asiática) & os Melhores Ativos para Operar. Robô conta com Sistema de Voz Integrado que diz: (Atenção: Tendência!!!) & (Atenção: Reversão!!!) para quando o gráfico tá em TENDÊNCIA ou REVERTE a TENDÊNCIA!!!<br>
                     Comece a Lucrar com o Robô de Sinais Compra & Venda no Mercado Financeiro FOREX. Não perca mais tempo: Comece a Operar como um Trader Profissional!!!
                 </p>
-                <span class="price">R$ 144,56</span>
                 
-                <!-- BOTÕES -->
+                <!-- 3 BOTÕES DE COMPRA COM VALORES EM CIMA DE CADA UM -->
                 <div class="btn-box" onclick="event.stopPropagation()">
-                    <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR AGORA</button>
-                    <button class="btn-style btn-add" onclick="addNoCarrinho('Robô Trader Pro - Day Trade', 144)">ADICIONAR AO CARRINHO</button>
+                    
+                    <!-- 1 Mês -->
+                    <div class="plan-item">
+                        <span class="price">PREÇO DE R$:72,91 REAIS</span>
+                        <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1RsHUCm')">COMPRAR 1 MÊS DE ASSINATURA</button>
+                    </div>
+
+                    <!-- 2 Meses -->
+                    <div class="plan-item">
+                        <span class="price">PREÇO DE R$:144,56 REAIS</span>
+                        <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/21oJmWz')">COMPRAR 2 MESES DE ASSINATURA</button>
+                    </div>
+
+                    <!-- 3 Meses -->
+                    <div class="plan-item">
+                        <span class="price">PREÇO DE R$:191,23 REAIS</span>
+                        <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1EujV1w')">COMPRAR 3 MESES DE ASSINATURA</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -421,13 +459,29 @@
             <span class="btn-close-detail" onclick="fecharDetalhes()">&times;</span>
             <img id="det-img" src="" class="detail-img">
             <h2 id="det-title" class="detail-title"></h2>
-            <p id="det-desc" class="detail-desc"></p>
-            <span id="det-price" class="detail-price"></span>
             
-            <div style="width: 100%; display: flex; flex-direction: column; gap: 12px;">
-                <button id="det-pay-btn" class="btn-style btn-pay" style="height:75px; font-size:24px;" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR AGORA</button>
-                <button id="det-add-btn" class="btn-style btn-add" style="height:65px; font-size:22px;">ADICIONAR AO CARRINHO</button>
-                <button class="btn-style btn-back-shop" onclick="fecharDetalhes()">VOLTAR</button>
+            <!-- SUBTÍTULO AZUL CIANO TAMBÉM NO MODAL -->
+            <div class="app-subtitulo" style="margin-bottom: 20px;">Aplicativo para Celulares Android</div>
+
+            <p id="det-desc" class="detail-desc"></p>
+            
+            <div style="width: 100%; display: flex; flex-direction: column; gap: 20px;">
+                <div class="plan-item">
+                    <span class="price">PREÇO DE R$:72,91 REAIS</span>
+                    <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR 1 MÊS DE ASSINATURA</button>
+                </div>
+
+                <div class="plan-item">
+                    <span class="price">PREÇO DE R$:144,56 REAIS</span>
+                    <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR 2 MESES DE ASSINATURA</button>
+                </div>
+
+                <div class="plan-item">
+                    <span class="price">PREÇO DE R$:191,23 REAIS</span>
+                    <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR 3 MESES DE ASSINATURA</button>
+                </div>
+
+                <button class="btn-style btn-back-shop" style="margin-top: 10px;" onclick="fecharDetalhes()">VOLTAR</button>
             </div>
         </div>
     </div>
@@ -451,9 +505,7 @@
     </div>
 
     <script>
-        // ========================================================
-        // SCRIPT DO CARROSSEL DE DESLIZAMENTO (SEM PISCAR / SEM TELA PRETA)
-        // ========================================================
+        // SCRIPT DO CARROSSEL DE DESLIZAMENTO DIRETO
         let slideAtual = 0;
         let slideTimer;
 
@@ -467,7 +519,6 @@
             else if (indice < 0) slideAtual = slides.length - 1;
             else slideAtual = indice;
 
-            // Desliza diretamente para a foto sem nunca expor o fundo preto
             track.style.transform = `translateX(-${slideAtual * 100}%)`;
 
             dots.forEach((dot, i) => {
@@ -476,13 +527,13 @@
         }
 
         function mudarSlide(direcao, event) {
-            if (event) event.stopPropagation(); // Impede de abrir o modal
+            if (event) event.stopPropagation();
             mostrarSlide(slideAtual + direcao);
             reiniciarTimerSlide();
         }
 
         function irParaSlide(indice, event) {
-            if (event) event.stopPropagation(); // Impede de abrir o modal
+            if (event) event.stopPropagation();
             mostrarSlide(indice);
             reiniciarTimerSlide();
         }
@@ -490,7 +541,7 @@
         function iniciarTimerSlide() {
             slideTimer = setInterval(() => {
                 mostrarSlide(slideAtual + 1);
-            }, 4000); // Passa para a próxima imagem a cada 4 segundos
+            }, 4000);
         }
 
         function reiniciarTimerSlide() {
@@ -498,15 +549,12 @@
             iniciarTimerSlide();
         }
 
-        // Inicia a rotação automática ao carregar a página
         window.addEventListener('DOMContentLoaded', () => {
             mostrarSlide(0);
             iniciarTimerSlide();
         });
 
-        // ========================================================
-        // DEMAIS FUNÇÕES DA LOJA E CARRINHO
-        // ========================================================
+        // FUNÇÕES DA LOJA E CARRINHO
         function switchTab(categoryId, element) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
@@ -520,9 +568,8 @@
         function abrirDetalhes(nome, desc, preco, img) {
             document.getElementById('det-title').innerText = nome;
             document.getElementById('det-desc').innerText = desc;
-            document.getElementById('det-price').innerText = `R$ ${preco},00`;
+            document.getElementById('det-price').innerText = `A partir de R$ ${preco},00`;
             document.getElementById('det-img').src = img;
-            document.getElementById('det-add-btn').onclick = function() { addNoCarrinho(nome, preco); };
             document.getElementById('product-detail-view').style.display = 'block';
         }
 
