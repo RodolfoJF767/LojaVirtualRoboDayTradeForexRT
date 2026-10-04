@@ -1,0 +1,392 @@
+<!-- Define o documento como HTML5 moderno -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <!-- FORÇA O MODO DESKTOP -->
+    <meta name="viewport" content="width=1280">
+    <title>RoboDayTradeForexRT</title>
+
+    <link rel="icon" href="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/favicon.png">
+    <meta name="apple-mobile-web-app-title" content="Robo Day Trade">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --vermelho: #ff0000;         
+            --verde-neon: #00ff00;       
+            --amarelo: #ffff00;          
+            --rosa-neon: #ff00ff;        
+            --laranja-neon: #ff8c00;     
+            --azul-celeste: #00bfff;     
+            --azul-escuro-navy: #000050; 
+            --preto: #000000;            
+            --fundo-card: #0d0d0d;       
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Arial Black', sans-serif; 
+            background: linear-gradient(-45deg, #0a0a0a, #1a0a2e, #4b0082, #001f3f, #000000, #240b36);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            background-attachment: fixed;
+            color: #ffffff;
+            margin: 0; padding: 0;
+            text-align: center;
+            min-width: 1280px;            
+            padding-bottom: 220px;        
+        }
+
+        header {
+            background: linear-gradient(-45deg, #000000, #4b0082, #001f3f, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            padding: 20px;
+            border-bottom: 3px solid var(--verde-neon);
+        }
+
+        .logo-img { width: 250px; filter: drop-shadow(0 0 10px var(--verde-neon)); }
+
+        .banner-unico-container {
+            width: 1240px; margin: 20px auto; border: 5px solid var(--verde-neon);
+            border-radius: 20px; box-shadow: 0 0 25px rgba(0, 255, 0, 0.4);
+            overflow: hidden; line-height: 0;
+        }
+
+        .banner-img { width: 100%; height: auto; display: block; }
+
+        .tabs-nav {
+            display: flex; justify-content: center; background: rgba(17, 17, 17, 0.9); padding: 20px;
+            position: sticky; top: 0; z-index: 900; gap: 20px; backdrop-filter: blur(10px);
+        }
+
+        .tab-btn {
+            background: none; border: 2px solid var(--verde-neon); color: var(--verde-neon);
+            padding: 14px 30px; font-weight: bold; text-transform: uppercase;
+            cursor: pointer; font-size: 18px; transition: 0.3s; border-radius: 8px;
+        }
+
+        .tab-btn.active, .tab-btn:hover { background: var(--verde-neon); color: #000; box-shadow: 0 0 20px var(--verde-neon); }
+        
+        .tab-contact { 
+            background-color: var(--amarelo) !important; 
+            color: var(--azul-escuro-navy) !important; 
+            border: 2px solid var(--azul-escuro-navy) !important; 
+            box-shadow: 0 0 15px var(--amarelo);
+        }
+
+        .container { display: flex; justify-content: center; width: 1240px; margin: 30px auto; padding: 10px; }
+        .product-card { display: none !important; width: 100%; }
+        .product-card.show { display: flex !important; justify-content: center; }
+
+        /* CONTÊINER DO ROBÔ */
+        .card-single-bot { 
+            background: var(--fundo-card); 
+            border: 4px solid var(--verde-neon); 
+            border-radius: 35px; 
+            padding: 40px; 
+            transition: 0.4s; 
+            cursor: pointer; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            width: 680px;
+            box-shadow: 0 0 35px rgba(0, 255, 0, 0.35);
+            box-sizing: border-box;
+            overflow: hidden; /* Corta a imagem nos cantos arredondados do topo */
+        }
+        .card-single-bot:hover { 
+            border-color: var(--amarelo); 
+            box-shadow: 0 0 45px rgba(255, 255, 0, 0.55); 
+        }
+
+        /* IMAGEM OCUPANDO 100% DAS LATERAIS E TOPO DO CONTÊINER (SEM DIVISÓRIAS) */
+        .product-bot-img { 
+            width: calc(100% + 80px); /* Sangra cobrindo o padding das laterais */
+            margin: -40px -40px 25px -40px; /* Encosta no topo e nas bordas laterais */
+            height: auto;
+            aspect-ratio: 9 / 19.5; 
+            object-fit: cover; 
+            border: none; /* Sem borda divisória */
+            border-bottom: 3px solid var(--verde-neon); /* Linha divisória sutil na base */
+            display: block;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+        }
+        
+        .card-single-bot h3 { 
+            color: var(--amarelo); 
+            font-size: 32px; 
+            margin: 10px 0; 
+            line-height: 1.2;
+        }
+        .card-single-bot .description { 
+            font-size: 19px; 
+            color: #ddd; 
+            margin: 10px 0 20px 0; 
+            line-height: 1.5; 
+            font-family: Arial, sans-serif;
+            text-align: center;
+            max-width: 600px;
+        }
+        .price { display: block; font-size: 48px; color: var(--verde-neon); margin-bottom: 25px; font-weight: bold; }
+
+        /* LARGURA DOS BOTÕES */
+        .btn-box { 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 14px; 
+        }
+
+        .btn-style { 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 65px; 
+            border-radius: 14px; 
+            font-family: Arial, sans-serif; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            font-size: 20px; 
+            border: none; 
+            cursor: pointer; 
+            width: 100%; 
+            transition: 0.3s; 
+            box-sizing: border-box;
+        }
+        .btn-pay { background-color: var(--rosa-neon); color: #000; } 
+        .btn-add { background-color: var(--laranja-neon); color: #000; } 
+        .btn-pay:hover { box-shadow: 0 0 25px var(--rosa-neon); }
+        .btn-add:hover { box-shadow: 0 0 25px var(--laranja-neon); }
+
+        /* MODAL DE DETALHES */
+        #product-detail-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5000; overflow-y: auto; padding: 50px 0; background: linear-gradient(-45deg, #000000, #1a0a2e, #4b0082, #001f3f, #000000); background-size: 400% 400%; animation: gradientBG 10s ease infinite; }
+        .detail-content { width: 750px; margin: auto; background: rgba(13, 13, 13, 0.95); border: 4px solid var(--verde-neon); border-radius: 40px; padding: 40px; display: flex; flex-direction: column; align-items: center; position: relative; backdrop-filter: blur(15px); overflow: hidden; }
+        .btn-close-detail { position: absolute; top: 20px; right: 30px; font-size: 60px; color: var(--vermelho); cursor: pointer; z-index: 10; text-shadow: 0 0 10px #000; }
+
+        .detail-img { 
+            width: calc(100% + 80px); 
+            margin: -40px -40px 30px -40px;
+            aspect-ratio: 9 / 19.5; 
+            object-fit: cover; 
+            background: #000; 
+            border: none;
+            border-bottom: 3px solid var(--verde-neon);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+        }
+
+        .detail-title { font-size: 36px; color: var(--amarelo); margin-bottom: 15px; }
+        .detail-desc { font-size: 22px; color: #ffffff; font-weight: bold; max-width: 650px; margin-bottom: 30px; line-height: 1.5; font-family: Arial, sans-serif; }
+        .detail-price { font-size: 50px; color: var(--verde-neon); font-weight: bold; margin-bottom: 30px; }
+        .btn-back-shop { background-color: var(--azul-celeste); color: #000; height: 60px; font-size: 20px; }
+
+        /* CONTATO VENDEDOR */
+        .contato-wrapper.show { display: flex !important; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding: 20px 0; }
+        .contact-box-center { width: 1100px; background: rgba(13, 13, 13, 0.8); border: 5px solid var(--amarelo); padding: 60px; border-radius: 40px; text-align: center; display: flex; flex-direction: column; align-items: center; backdrop-filter: blur(10px); }
+        .photo-leaf { width: 450px; height: 450px; object-fit: cover; border: 8px solid var(--amarelo); border-radius: 40px 220px 40px 220px; margin-bottom: 30px; }
+        .pink-title { color: var(--rosa-neon); font-size: 70px; margin: 0; text-transform: uppercase; }
+        .yellow-name { color: var(--amarelo); font-size: 80px; margin: 5px 0 20px 0; text-transform: uppercase; }
+        .contact-info-text { font-size: 30px !important; color: #ffffff; text-align: center; max-width: 1000px; line-height: 1.4; margin-bottom: 50px; font-weight: bold; }
+        .btn-wa-neon-black { background-color: var(--verde-neon); color: #000; padding: 25px 80px; border-radius: 60px; text-decoration: none; font-size: 30px; font-weight: 900; display: inline-flex; align-items: center; gap: 20px; text-transform: uppercase; border: none; cursor: pointer; justify-content: center; }
+
+        #cart-icon { position: fixed; bottom: 30px; left: 30px; background: var(--verde-neon); color: #000; width: 140px; height: 140px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 70px; cursor: pointer; z-index: 2500; box-shadow: 0 0 50px var(--verde-neon); border: 6px solid #000; transition: 0.3s; }
+        #cart-count { position: absolute; top: 5px; right: 5px; background: var(--vermelho); color: #fff; width: 45px; height: 45px; border-radius: 50%; font-size: 22px; font-weight: 900; display: flex; align-items: center; justify-content: center; border: 3px solid #000; }
+        #cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 6000; justify-content: center; align-items: center; }
+        .cart-content { background: #111; width: 700px; border: 4px solid var(--verde-neon); border-radius: 30px; padding: 40px; }
+        .alerta-pagamento { background: #ff0000; color: #fff; padding: 20px; border-radius: 10px; font-size: 22px; font-weight: bold; margin-bottom: 25px; border: 2px solid var(--amarelo); }
+
+        footer { background: linear-gradient(-45deg, #0a0a0a, #1a0a2e, #4b0082, #001f3f, #000000); background-size: 400% 400%; animation: gradientBG 10s ease infinite; padding: 60px 20px; border-top: 4px solid var(--verde-neon); margin-top: 40px; }
+        footer p { font-size: 32px; font-weight: bold; color: #ffffff; margin-top: 20px; text-transform: uppercase; }
+        
+        .footer-gif { 
+            width: 300px; 
+            height: auto;
+            object-fit: cover;
+            border: 8px solid var(--amarelo); 
+            border-radius: 40px 220px 40px 220px; 
+            margin-bottom: 10px; 
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        let carrinho = [];
+
+        function abrirLinkExterno(url) {
+            const win = window.open(url, '_blank');
+            if (!win || win.closed || typeof win.closed == 'undefined') {
+                window.location.assign(url);
+            }
+        }
+    </script>
+
+    <header>
+        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/logo.gif" alt="Logo" class="logo-img">
+        <h1 style="color: var(--verde-neon); margin: 0; font-size: 34px;">🙏💰 ROBÔ SINAIS COMPRA & VENDA MERCADO FINANCEIRO (FOREX) 💰🙏</h1>
+    </header>
+
+    <div class="banner-unico-container">
+        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/banner.gif" alt="Banner Oficial" class="banner-img">
+    </div>
+
+    <!-- NAVEGAÇÃO -->
+    <nav class="tabs-nav">
+        <button class="tab-btn active" onclick="switchTab('robo-trade', this)"><i class="fas fa-robot"></i> Robô Day Trade</button>
+        <button class="tab-btn tab-contact" onclick="switchTab('contato', this)"><i class="fas fa-headset"></i> Contato Vendedor</button>
+    </nav>
+
+    <div class="container" id="gridLoja">
+        
+        <!-- PRODUTO ÚNICO COM IMAGEM SEM DIVISÓRIA -->
+        <div class="product-card robo-trade show">
+            <div class="card-single-bot" onclick="abrirDetalhes('Robô Sinais Compra & Venda Mercado Financeiro (FOREX)', 'Robô de Sinais Compra & Venda para Day Trade Mercado Financeiro Forex: Mostra os Melhores pontos de (Entrada, Take Proft & Stop LOSS & valores de Lotes), mostra as (Sessões de Londres, Nova York, Asiática) & os Melhores Ativos para Operar. Robô conta com Sistema de Voz Integrado que diz: (Atenção: Tendência!!!) & (Atenção: Reversão!!!) para quando o gráfico tá em TENDÊNCIA ou REVERTE a TENDÊNCIA!!!', 997, 'https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagemcontatovendedor.png')">
+                
+                <!-- IMAGEM SANGRADA ATÉ AS LATERAIS E TOPO -->
+                <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagemcontatovendedor.png" class="product-bot-img" alt="Tela do Robô no Celular">
+                
+                <h3>Robô Sinais Compra & Venda Mercado Financeiro (FOREX)</h3>
+                <p class="description">
+                    Robô de Sinais Compra & Venda para Day Trade Mercado Financeiro Forex: Mostra os Melhores pontos de (Entrada, Take Proft & Stop LOSS & valores de Lotes), mostra as (Sessões de Londres, Nova York, Asiática) & os Melhores Ativos para Operar. Robô conta com Sistema de Voz Integrado que diz: (Atenção: Tendência!!!) & (Atenção: Reversão!!!) para quando o gráfico tá em TENDÊNCIA ou REVERTE a TENDÊNCIA!!!<br>
+                    Comece a Lucrar com o Robô de Sinais Compra & Venda no Mercado Financeiro FOREX. Não perca mais tempo: Comece a Operar como um Trader Profissional!!!
+                </p>
+                <span class="price">R$ 144,56</span>
+                
+                <!-- BOTÕES -->
+                <div class="btn-box" onclick="event.stopPropagation()">
+                    <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR AGORA</button>
+                    <button class="btn-style btn-add" onclick="addNoCarrinho('Robô Trader Pro - Day Trade', 997)">ADICIONAR AO CARRINHO</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA CONTATO VENDEDOR -->
+        <div class="product-card contato contato-wrapper">
+            <div class="contact-box-center">
+                <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagemcontatovendedor.png" class="photo-leaf" alt="Vendedor">
+                <h1 class="pink-title">SUPORTE & VENDAS</h1>
+                <h2 class="yellow-name">RODOLFO FRANCO</h2>
+                <p class="contact-info-text">
+                    📌 Atenção: Para você tirar qualquer dúvida sobre o Robô. Entre em contato com o vendedor clicando no BOTÃO de WHATSAPP abaixo & me envie uma mensagem de texto!!! 📌
+                </p>
+                <button onclick="abrirLinkExterno('https://chat.whatsapp.com/BVoHSuGT69T3qj1MaGOBTn?s=cl&p=a&ilr=1&amv=2');" class="btn-wa-neon-black">
+                    <i class="fab fa-whatsapp" style="font-size: 35px; margin-right: 15px;"></i> CHAMAR NO WHATSAPP AGORA
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RODAPÉS -->
+    <footer>
+        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/rodapemercadopago.png" alt="Mercado Pago" class="footer-gif">
+        <p>PAGAMENTO SEGURO VIA MERCADO PAGO</p>
+    </footer>
+
+    <footer>
+        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/refs/heads/main/imagens/imgagradecimento.gif" alt="Agradecimento" class="footer-gif">
+        <p>🙏🌹 AGRADECIMENTO & BONS TRADES 🌹🙏</p>
+    </footer>
+
+    <!-- MODAL DETALHES -->
+    <div id="product-detail-view">
+        <div class="detail-content">
+            <span class="btn-close-detail" onclick="fecharDetalhes()">&times;</span>
+            <img id="det-img" src="" class="detail-img">
+            <h2 id="det-title" class="detail-title"></h2>
+            <p id="det-desc" class="detail-desc"></p>
+            <span id="det-price" class="detail-price"></span>
+            
+            <div style="width: 100%; display: flex; flex-direction: column; gap: 12px;">
+                <button id="det-pay-btn" class="btn-style btn-pay" style="height:75px; font-size:24px;" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR AGORA</button>
+                <button id="det-add-btn" class="btn-style btn-add" style="height:65px; font-size:22px;">ADICIONAR AO CARRINHO</button>
+                <button class="btn-style btn-back-shop" onclick="fecharDetalhes()">VOLTAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ICONE DO CARRINHO -->
+    <div id="cart-icon" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <div id="cart-count">0</div>
+    </div>
+
+    <!-- MODAL DO CARRINHO -->
+    <div id="cart-modal">
+        <div class="cart-content">
+            <h2 style="color: var(--verde-neon)">CARRINHO DE COMPRAS</h2>
+            <div class="alerta-pagamento">⚠️ Atenção: Digite o valor do total de sua compra no campo do Mercado Pago para finalizar!!!</div>
+            <div id="cart-items-list" style="max-height: 300px; overflow-y: auto; text-align: center; margin-bottom: 20px;"></div>
+            <h3 style="font-size: 32px; border-top: 1px solid #333; padding-top: 15px;">TOTAL: <span id="cart-total" style="color: var(--verde-neon)">R$ 0,00</span></h3>
+            <button onclick="abrirLinkExterno('https://link.mercadopago.com.br/rfshockflyer');" class="btn-style btn-pay" style="height: 80px; font-size: 24px;">PAGAR AGORA</button>
+            <button class="btn-style btn-back-shop" style="margin-top: 15px;" onclick="toggleCart()">VOLTAR</button>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(categoryId, element) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            document.querySelectorAll('.product-card').forEach(item => {
+                item.classList.remove('show');
+                if (item.classList.contains(categoryId)) item.classList.add('show');
+            });
+            window.scrollTo({ top: 400, behavior: 'smooth' });
+        }
+
+        function abrirDetalhes(nome, desc, preco, img) {
+            document.getElementById('det-title').innerText = nome;
+            document.getElementById('det-desc').innerText = desc;
+            document.getElementById('det-price').innerText = `R$ ${preco},00`;
+            document.getElementById('det-img').src = img;
+            document.getElementById('det-add-btn').onclick = function() { addNoCarrinho(nome, preco); };
+            document.getElementById('product-detail-view').style.display = 'block';
+        }
+
+        function fecharDetalhes() { 
+            document.getElementById('product-detail-view').style.display = 'none'; 
+        }
+
+        function addNoCarrinho(nome, preco) {
+            carrinho.push({nome, preco});
+            atualizarCarrinho();
+            alert(nome + " foi adicionado ao seu carrinho!");
+        }
+
+        function atualizarCarrinho() {
+            const list = document.getElementById('cart-items-list');
+            const totalEl = document.getElementById('cart-total');
+            const countEl = document.getElementById('cart-count');
+            list.innerHTML = "";
+            let total = 0;
+            carrinho.forEach((item, index) => {
+                total += item.preco;
+                list.innerHTML += `<div style="margin-bottom:12px; font-size:18px; border-bottom:1px solid #222; padding-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                    <span>${item.nome}</span> <span>R$ ${item.preco},00 <i class="fas fa-trash" onclick="removerItem(${index})" style="color:red; margin-left:15px; cursor:pointer"></i></span>
+                </div>`;
+            });
+            totalEl.innerText = `R$ ${total},00`;
+            countEl.innerText = carrinho.length;
+        }
+
+        function removerItem(index) {
+            carrinho.splice(index, 1);
+            atualizarCarrinho();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+    </script>
+</body>
+</html>
