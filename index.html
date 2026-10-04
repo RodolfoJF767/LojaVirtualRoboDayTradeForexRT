@@ -132,7 +132,7 @@
             will-change: transform;
         }
 
-        /* Cada slide ocupa 100% exato sem piscar */
+        /* Cada slide ocupa 100% sem piscar */
         .carousel-slide {
             min-width: 100%;
             width: 100%;
@@ -140,6 +140,7 @@
             object-fit: cover;
             flex-shrink: 0;
             display: block;
+            background: #111;
         }
 
         /* SETAS DO CARROSSEL */
@@ -331,29 +332,29 @@
         <div class="product-card robo-trade show">
             <div class="card-single-bot" onclick="abrirDetalhes('Robô Sinais Compra & Venda Mercado Financeiro (FOREX)', 'Robô de Sinais Compra & Venda para Day Trade Mercado Financeiro Forex: Mostra os Melhores pontos de (Entrada, Take Proft & Stop LOSS & valores de Lotes), mostra as (Sessões de Londres, Nova York, Asiática) & os Melhores Ativos para Operar. Robô conta com Sistema de Voz Integrado que diz: (Atenção: Tendência!!!) & (Atenção: Reversão!!!) para quando o gráfico tá em TENDÊNCIA ou REVERTE a TENDÊNCIA!!!', 144, 'https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagemcontatovendedor.png')">
                 
-                <!-- CARROSSEL DE 7 IMAGENS (TRANSIÇÃO CONTÍNUA) -->
+                <!-- CARROSSEL DE 7 IMAGENS (REPOSITÓRIO PADRONIZADO COM FALLBACK) -->
                 <div class="carousel-container">
                     <div class="carousel-slides" id="carouselSlides">
                         <!-- Imagem 1 (PNG) -->
-                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem01.png" class="carousel-slide" alt="Tela 1 do Robô">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem01.png" class="carousel-slide" alt="Tela 1 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
                         
                         <!-- Imagem 2 (PNG) -->
-                        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagem02.png" class="carousel-slide" alt="Tela 2 do Robô">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem02.png" class="carousel-slide" alt="Tela 2 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
                         
                         <!-- Imagem 3 (PNG) -->
-                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem03.png" class="carousel-slide" alt="Tela 3 do Robô">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem03.png" class="carousel-slide" alt="Tela 3 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
 
                         <!-- Imagem 4 (PNG) -->
-                        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagem04.png" class="carousel-slide" alt="Tela 4 do Robô">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem04.png" class="carousel-slide" alt="Tela 4 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
 
                         <!-- Imagem 5 (PNG) -->
-                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem05.png" class="carousel-slide" alt="Tela 5 do Robô">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem05.png" class="carousel-slide" alt="Tela 5 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
 
                         <!-- Imagem 6 (PNG) -->
-                        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagem06.png" class="carousel-slide" alt="Tela 6 do Robô">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem06.png" class="carousel-slide" alt="Tela 6 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
 
                         <!-- Imagem 7 (PNG) -->
-                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem07.png" class="carousel-slide" alt="Tela 7 do Robô">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem07.png" class="carousel-slide" alt="Tela 7 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
                     </div>
 
                     <!-- Setas de navegação -->
