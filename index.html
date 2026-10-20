@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <!-- FORÇA O MODO DESKTOP -->
     <meta name="viewport" content="width=1280">
-    <title>RF-Shock Flyer | Loja Oficial</title>
+    <title>RoboDayTradeForexRT</title>
 
     <link rel="icon" href="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/favicon.png">
-    <meta name="apple-mobile-web-app-title" content="RF-Shock">
+    <meta name="apple-mobile-web-app-title" content="Robo Day Trade">
     <meta name="mobile-web-app-capable" content="yes">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -22,6 +22,7 @@
             --rosa-neon: #ff00ff;        
             --laranja-neon: #ff8c00;     
             --azul-celeste: #00bfff;     
+            --azul-ciano: #00ffff;
             --azul-escuro-navy: #000050; 
             --preto: #000000;            
             --fundo-card: #0d0d0d;       
@@ -50,11 +51,17 @@
             background: linear-gradient(-45deg, #000000, #4b0082, #001f3f, #000000);
             background-size: 400% 400%;
             animation: gradientBG 8s ease infinite;
-            padding: 20px;
-            border-bottom: 3px solid var(--vermelho);
+            padding: 25px 20px;
+            border-bottom: 3px solid var(--verde-neon);
         }
 
-        .logo-img { width: 250px; filter: drop-shadow(0 0 10px var(--verde-neon)); }
+        /* LOGO COM ESPAÇO INFERIOR */
+        .logo-img { 
+            width: 250px; 
+            filter: drop-shadow(0 0 10px var(--verde-neon)); 
+            display: inline-block;
+            margin-bottom: 10px;
+        }
 
         .banner-unico-container {
             width: 1240px; margin: 20px auto; border: 5px solid var(--verde-neon);
@@ -66,18 +73,17 @@
 
         .tabs-nav {
             display: flex; justify-content: center; background: rgba(17, 17, 17, 0.9); padding: 20px;
-            position: sticky; top: 0; z-index: 900; gap: 15px; backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 900; gap: 20px; backdrop-filter: blur(10px);
         }
 
         .tab-btn {
             background: none; border: 2px solid var(--verde-neon); color: var(--verde-neon);
-            padding: 12px 22px; font-weight: bold; text-transform: uppercase;
-            cursor: pointer; font-size: 16px; transition: 0.3s;
+            padding: 14px 30px; font-weight: bold; text-transform: uppercase;
+            cursor: pointer; font-size: 18px; transition: 0.3s; border-radius: 8px;
         }
 
         .tab-btn.active, .tab-btn:hover { background: var(--verde-neon); color: #000; box-shadow: 0 0 20px var(--verde-neon); }
         
-        /* BOTÃO CONTATO: FUNDO AMARELO E LETRAS AZUL ESCURO */
         .tab-contact { 
             background-color: var(--amarelo) !important; 
             color: var(--azul-escuro-navy) !important; 
@@ -85,79 +91,222 @@
             box-shadow: 0 0 15px var(--amarelo);
         }
 
-        .container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 1240px; margin: 30px auto; padding: 10px; }
-        .product-card { display: none !important; }
-        .product-card.show { display: block !important; }
+        .container { display: flex; justify-content: center; width: 1240px; margin: 30px auto; padding: 10px; }
+        .product-card { display: none !important; width: 100%; }
+        .product-card.show { display: flex !important; justify-content: center; }
 
-        .card { 
+        /* CONTÊINER DO ROBÔ */
+        .card-single-bot { 
             background: var(--fundo-card); 
-            border: 2px solid #222; 
-            border-radius: 20px; 
-            padding: 15px; 
+            border: 4px solid var(--verde-neon); 
+            border-radius: 35px; 
+            padding: 40px; 
             transition: 0.4s; 
             cursor: pointer; 
             display: flex; 
             flex-direction: column; 
-            min-height: 560px;
+            align-items: center;
+            width: 680px;
+            box-shadow: 0 0 35px rgba(0, 255, 0, 0.35);
+            box-sizing: border-box;
+            overflow: hidden;
         }
-        .card:hover { border-color: var(--vermelho); box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
+        .card-single-bot:hover { 
+            border-color: var(--amarelo); 
+            box-shadow: 0 0 45px rgba(255, 255, 0, 0.55); 
+        }
 
-        .product-gif { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 30px; background-color: #fff; border: 1px solid #333; }
-        
-        .card h3 { 
-            color: var(--amarelo); 
-            font-size: 18px; 
-            margin: 15px 0 10px 0; 
-            height: 60px; 
-            overflow: hidden; 
+        /* CARROSSEL */
+        .carousel-container {
+            width: calc(100% + 80px); 
+            margin: -40px -40px 25px -40px; 
+            aspect-ratio: 9 / 19.5; 
+            position: relative;
+            overflow: hidden;
+            background: var(--fundo-card);
+            border-bottom: 3px solid var(--verde-neon);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel-slides {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+            display: block;
+            background: #111;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.75);
+            color: var(--verde-neon);
+            border: 2px solid var(--verde-neon);
+            font-size: 32px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            outline: none;
+        }
+
+        .carousel-arrow:hover {
+            background: var(--verde-neon);
+            color: #000;
+            box-shadow: 0 0 25px var(--verde-neon);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-arrow.prev { left: 15px; }
+        .carousel-arrow.next { right: 15px; }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            border: 2px solid var(--verde-neon);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active, .dot:hover {
+            background: var(--verde-neon);
+            box-shadow: 0 0 12px var(--verde-neon);
+            transform: scale(1.3);
+        }
+
+        .card-single-bot h3 { 
+            color: var(--amarelo); 
+            font-size: 32px; 
+            margin: 10px 0 5px 0; 
             line-height: 1.2;
         }
-        .card .description { font-size: 16px; color: #fff; font-weight: bold; margin: 0 0 10px 0; height: 45px; overflow: hidden; line-height: 1.3; }
-        .price { display: block; font-size: 30px; color: var(--verde-neon); margin-bottom: 15px; }
+
+        /* TEXTO AZUL CIANO ABAIXO DO TÍTULO */
+        .app-subtitulo {
+            color: var(--azul-ciano);
+            font-size: 26px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px var(--azul-ciano);
+            letter-spacing: 1px;
+            margin: 5px 0 15px 0;
+        }
+
+        .card-single-bot .description { 
+            font-size: 19px; 
+            color: #ddd; 
+            margin: 10px 0 20px 0; 
+            line-height: 1.5; 
+            font-family: Arial, sans-serif;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        /* TEXTO GRANDE DO VALOR EM CIMA DE CADA BOTÃO */
+        .price { 
+            display: block; 
+            font-size: 40px; 
+            color: var(--verde-neon); 
+            font-weight: bold; 
+            margin: 8px 0;
+            text-shadow: 0 0 15px var(--verde-neon);
+            letter-spacing: 0.5px;
+        }
+
+        /* LARGURA E ESTRUTURA DOS PLANOS */
+        .btn-box { 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+            margin-top: 10px;
+        }
+
+        .plan-item {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
 
         .btn-style { 
             text-decoration: none; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            min-height: 55px; 
-            height: auto;
-            border-radius: 8px; 
+            min-height: 65px; 
+            border-radius: 14px; 
             font-family: Arial, sans-serif; 
             font-weight: bold; 
             text-transform: uppercase; 
-            font-size: 16px; 
+            font-size: 21px; 
             border: none; 
             cursor: pointer; 
             width: 100%; 
-            margin-bottom: 5px; 
             transition: 0.3s; 
-            text-align: center;
-            line-height: 1.1;
-            padding: 5px;
             box-sizing: border-box;
+            letter-spacing: 1px;
         }
         .btn-pay { background-color: var(--rosa-neon); color: #000; } 
-        .btn-add { background-color: var(--laranja-neon); color: #000; } 
+        .btn-pay:hover { box-shadow: 0 0 25px var(--rosa-neon); }
 
+        /* MODAL DE DETALHES */
         #product-detail-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5000; overflow-y: auto; padding: 50px 0; background: linear-gradient(-45deg, #000000, #1a0a2e, #4b0082, #001f3f, #000000); background-size: 400% 400%; animation: gradientBG 10s ease infinite; }
-        .detail-content { width: 1100px; margin: auto; background: rgba(13, 13, 13, 0.8); border: 3px solid var(--verde-neon); border-radius: 40px; padding: 50px; display: flex; flex-direction: column; align-items: center; position: relative; backdrop-filter: blur(15px); }
-        .btn-close-detail { position: absolute; top: 20px; right: 30px; font-size: 60px; color: var(--vermelho); cursor: pointer; }
-        .detail-img { width: 800px; height: 800px; object-fit: contain; background: #fff; border-radius: 30px; margin-bottom: 30px; border: 4px solid var(--verde-neon); }
-        .detail-title { font-size: 40px; color: var(--amarelo); margin-bottom: 15px; }
-        .detail-desc { font-size: 28px; color: #ffffff; font-weight: bold; max-width: 900px; margin-bottom: 30px; line-height: 1.4; }
-        .detail-price { font-size: 55px; color: var(--verde-neon); font-weight: bold; margin-bottom: 40px; }
+        .detail-content { width: 750px; margin: auto; background: rgba(13, 13, 13, 0.95); border: 4px solid var(--verde-neon); border-radius: 40px; padding: 40px; display: flex; flex-direction: column; align-items: center; position: relative; backdrop-filter: blur(15px); overflow: hidden; }
+        .btn-close-detail { position: absolute; top: 20px; right: 30px; font-size: 60px; color: var(--vermelho); cursor: pointer; z-index: 10; text-shadow: 0 0 10px #000; }
+
+        .detail-img { 
+            width: calc(100% + 80px); 
+            margin: -40px -40px 30px -40px;
+            aspect-ratio: 9 / 19.5; 
+            object-fit: cover; 
+            background: #000; 
+            border: none;
+            border-bottom: 3px solid var(--verde-neon);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+        }
+
+        .detail-title { font-size: 36px; color: var(--amarelo); margin-bottom: 5px; }
+        .detail-desc { font-size: 22px; color: #ffffff; font-weight: bold; max-width: 650px; margin-bottom: 25px; line-height: 1.5; font-family: Arial, sans-serif; }
         .btn-back-shop { background-color: var(--azul-celeste); color: #000; height: 60px; font-size: 20px; }
 
-        .contato-wrapper.show { grid-column: 1 / 5; display: flex !important; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding: 50px 0; }
+        /* CONTATO VENDEDOR */
+        .contato-wrapper.show { display: flex !important; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding: 20px 0; }
         .contact-box-center { width: 1100px; background: rgba(13, 13, 13, 0.8); border: 5px solid var(--amarelo); padding: 60px; border-radius: 40px; text-align: center; display: flex; flex-direction: column; align-items: center; backdrop-filter: blur(10px); }
         .photo-leaf { width: 450px; height: 450px; object-fit: cover; border: 8px solid var(--amarelo); border-radius: 40px 220px 40px 220px; margin-bottom: 30px; }
         .pink-title { color: var(--rosa-neon); font-size: 70px; margin: 0; text-transform: uppercase; }
         .yellow-name { color: var(--amarelo); font-size: 80px; margin: 5px 0 20px 0; text-transform: uppercase; }
-        .contact-info-text { font-size: 36px !important; color: #ffffff; text-align: center; max-width: 1000px; line-height: 1.4; margin-bottom: 50px; font-weight: bold; }
+        .contact-info-text { font-size: 30px !important; color: #ffffff; text-align: center; max-width: 1000px; line-height: 1.4; margin-bottom: 50px; font-weight: bold; }
         .btn-wa-neon-black { background-color: var(--verde-neon); color: #000; padding: 25px 80px; border-radius: 60px; text-decoration: none; font-size: 30px; font-weight: 900; display: inline-flex; align-items: center; gap: 20px; text-transform: uppercase; border: none; cursor: pointer; justify-content: center; }
 
         #cart-icon { position: fixed; bottom: 30px; left: 30px; background: var(--verde-neon); color: #000; width: 140px; height: 140px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 70px; cursor: pointer; z-index: 2500; box-shadow: 0 0 50px var(--verde-neon); border: 6px solid #000; transition: 0.3s; }
@@ -166,8 +315,8 @@
         .cart-content { background: #111; width: 700px; border: 4px solid var(--verde-neon); border-radius: 30px; padding: 40px; }
         .alerta-pagamento { background: #ff0000; color: #fff; padding: 20px; border-radius: 10px; font-size: 22px; font-weight: bold; margin-bottom: 25px; border: 2px solid var(--amarelo); }
 
-        footer { background: linear-gradient(-45deg, #0a0a0a, #1a0a2e, #4b0082, #001f3f, #000000); background-size: 400% 400%; animation: gradientBG 10s ease infinite; padding: 60px 20px; border-top: 4px solid var(--vermelho); margin-top: 40px; }
-        footer p { font-size: 40px; font-weight: bold; color: #ffffff; margin-top: 20px; text-transform: uppercase; }
+        footer { background: linear-gradient(-45deg, #0a0a0a, #1a0a2e, #4b0082, #001f3f, #000000); background-size: 400% 400%; animation: gradientBG 10s ease infinite; padding: 60px 20px; border-top: 4px solid var(--verde-neon); margin-top: 40px; }
+        footer p { font-size: 32px; font-weight: bold; color: #ffffff; margin-top: 20px; text-transform: uppercase; }
         
         .footer-gif { 
             width: 300px; 
@@ -182,7 +331,6 @@
 <body>
 
     <script>
-        const URL_BASE = "https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/";
         let carrinho = [];
 
         function abrirLinkExterno(url) {
@@ -191,106 +339,103 @@
                 window.location.assign(url);
             }
         }
-
-        const descricoes = {
-            'aero': 'Aeromodelo de alta performance para manobras 3D.',
-            'drones': 'Drone FPV com estabilização e câmera HD 4K.',
-            'eletronicos': 'Produtos testados com tecnologia de ponta.',
-            'pecas': 'Peças de reposição resistentes e originais.',
-            'smart': 'Arquivos STL ou produtos impressos 3D.'
-        };
     </script>
 
     <header>
-        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/logo.gif" alt="Logo" class="logo-img">
-        <h1 style="color: var(--verde-neon); margin: 0; font-size: 30px;">🙏 RF-SHOCK FLYER 🙏</h1>
+        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/logo.png" alt="Logo" class="logo-img">
+        <!-- TÍTULO COM ESPAÇAMENTO (MARGIN-TOP DE 25px) -->
+        <h1 style="color: var(--verde-neon); margin: 25px 0 10px 0; font-size: 34px;">🙏💰 ROBÔ SINAIS COMPRA & VENDA MERCADO FINANCEIRO (FOREX) 💰🙏</h1>
     </header>
 
     <div class="banner-unico-container">
-        <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/banner.gif" alt="Banner Oficial" class="banner-img">
+        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png" alt="Banner Oficial" class="banner-img">
     </div>
 
+    <!-- NAVEGAÇÃO -->
     <nav class="tabs-nav">
-        <button class="tab-btn active" onclick="switchTab('aero', this)">Aeromodelos</button>
-        <button class="tab-btn" onclick="switchTab('drones', this)">Drones</button>
-        <button class="tab-btn" onclick="switchTab('eletronicos', this)">Eletrônicos</button>
-        <button class="tab-btn" onclick="switchTab('pecas', this)">Peças & Assessórios</button>
-        <button class="tab-btn" onclick="switchTab('smart', this)">Arquivos Impressos</button>
-        <button class="tab-btn tab-contact" onclick="switchTab('contato', this)">Contato Vendedor</button>
+        <button class="tab-btn active" onclick="switchTab('robo-trade', this)"><i class="fas fa-robot"></i> Robô Day Trade</button>
+        <button class="tab-btn tab-contact" onclick="switchTab('contato', this)"><i class="fas fa-headset"></i> Contato Vendedor</button>
     </nav>
 
     <div class="container" id="gridLoja">
-        <script>
-            const gridLoja = document.getElementById('gridLoja');
-            const categorias = ['aero', 'drones', 'eletronicos', 'pecas', 'smart'];
+        
+        <!-- PRODUTO ÚNICO COM CARROSSEL DE 7 IMAGENS PNG -->
+        <div class="product-card robo-trade show">
+            <div class="card-single-bot" onclick="abrirDetalhes('Robô Sinais Compra & Venda Mercado Financeiro (FOREX)', 'Robô de Sinais Compra & Venda para Day Trade Mercado Financeiro Forex: Mostra os Melhores pontos de (Entrada, Take Proft & Stop LOSS & valores de Lotes), mostra as (Sessões de Londres, Nova York, Asiática) & os Melhores Ativos para Operar. Robô conta com Sistema de Voz Integrado que diz: (Atenção: Tendência!!!) & (Atenção: Reversão!!!) para quando o gráfico tá em TENDÊNCIA ou REVERTE a TENDÊNCIA!!!', 144, 'https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagemcontatovendedor.png')">
+                
+                <!-- CARROSSEL DE 7 IMAGENS -->
+                <div class="carousel-container">
+                    <div class="carousel-slides" id="carouselSlides">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem01.png" class="carousel-slide" alt="Tela 1 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem02.png" class="carousel-slide" alt="Tela 2 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem03.png" class="carousel-slide" alt="Tela 3 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem04.png" class="carousel-slide" alt="Tela 4 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem05.png" class="carousel-slide" alt="Tela 5 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem06.png" class="carousel-slide" alt="Tela 6 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
+                        <img src="https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/imagem07.png" class="carousel-slide" alt="Tela 7 do Robô" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/RodolfoJF767/LojaVirtualRoboDayTradeForexRT/refs/heads/main/imagens/banner.png';">
+                    </div>
 
-            let itemGiles1 = `
-            <div class="product-card aero show">
-                <div class="card" onclick="abrirDetalhes('Aeromodelo Shock Flyer GILES - Red Bull', 'Aeromodelo Shock Flyer GILES Pintura: RED Bull Bandeira USD.', 555, '${URL_BASE}AeroGilesRedBullUSD.png')">
-                    <img src="${URL_BASE}AeroGilesRedBullUSD.png" class="product-gif">
-                    <h3>Aeromodelo Shock Flyer GILES {Red Bull Bandeira USD}</h3>
-                    <p class="description">Pintura: Red Bull Bandeira USD.</p>
-                    <span class="price">R$ 555,00</span>
-                    <div class="btn-box" onclick="event.stopPropagation()">
-                        <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR</button>
-                        <button class="btn-style btn-add" onclick="addNoCarrinho('Aeromodelo Shock Flyer GILES - Red Bull', 555)">ADICIONAR AO CARRINHO</button>
+                    <!-- Setas de navegação -->
+                    <button type="button" class="carousel-arrow prev" onclick="mudarSlide(-1, event)">&#10094;</button>
+                    <button type="button" class="carousel-arrow next" onclick="mudarSlide(1, event)">&#10095;</button>
+
+                    <!-- Bolinhas indicadoras -->
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="irParaSlide(0, event)"></span>
+                        <span class="dot" onclick="irParaSlide(1, event)"></span>
+                        <span class="dot" onclick="irParaSlide(2, event)"></span>
+                        <span class="dot" onclick="irParaSlide(3, event)"></span>
+                        <span class="dot" onclick="irParaSlide(4, event)"></span>
+                        <span class="dot" onclick="irParaSlide(5, event)"></span>
+                        <span class="dot" onclick="irParaSlide(6, event)"></span>
                     </div>
                 </div>
-            </div>`;
+                
+                <!-- TÍTULO AMARELO -->
+                <h3>Robô Sinais Compra & Venda Mercado Financeiro (FOREX)</h3>
 
-            let itemGiles2 = `
-            <div class="product-card aero show">
-                <div class="card" onclick="abrirDetalhes('Aeromodelo Shock Flyer GILES - Brasil', 'Aeromodelo Shock Flyer GILES Pintura: Bandeira Brasil.', 777, '${URL_BASE}AeroGilesBandeiraBrasil.png')">
-                    <img src="${URL_BASE}AeroGilesBandeiraBrasil.png" class="product-gif">
-                    <h3>Aeromodelo Shock Flyer GILES {Pintura Bandeira Brasil}</h3>
-                    <p class="description">Pintura: Bandeira Brasil.</p>
-                    <span class="price">R$ 777,00</span>
-                    <div class="btn-box" onclick="event.stopPropagation()">
-                        <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR</button>
-                        <button class="btn-style btn-add" onclick="addNoCarrinho('Aeromodelo Shock Flyer GILES - Brasil', 777)">ADICIONAR AO CARRINHO</button>
+                <!-- TEXTO AZUL CIANO ABAIXO DO TÍTULO AMARELO -->
+                <div class="app-subtitulo">Aplicativo para Celulares Android</div>
+
+                <p class="description">
+                    Robô de Sinais Compra & Venda para Day Trade Mercado Financeiro Forex: Mostra os Melhores pontos de (Entrada, Take Proft & Stop LOSS & valores de Lotes), mostra as (Sessões de Londres, Nova York, Asiática) & os Melhores Ativos para Operar. Robô conta com Sistema de Voz Integrado que diz: (Atenção: Tendência!!!) & (Atenção: Reversão!!!) para quando o gráfico tá em TENDÊNCIA ou REVERTE a TENDÊNCIA!!!<br>
+                    Comece a Lucrar com o Robô de Sinais Compra & Venda no Mercado Financeiro FOREX. Não perca mais tempo: Comece a Operar como um Trader Profissional!!!
+                </p>
+                
+                <!-- 3 BOTÕES DE COMPRA COM VALORES EM CIMA DE CADA UM -->
+                <div class="btn-box" onclick="event.stopPropagation()">
+                    
+                    <!-- 1 Mês -->
+                    <div class="plan-item">
+                        <span class="price">PREÇO DE R$:72,91 REAIS</span>
+                        <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1RsHUCm')">COMPRAR 1 MÊS DE ASSINATURA</button>
+                    </div>
+
+                    <!-- 2 Meses -->
+                    <div class="plan-item">
+                        <span class="price">PREÇO DE R$:144,56 REAIS</span>
+                        <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/21oJmWz')">COMPRAR 2 MESES DE ASSINATURA</button>
+                    </div>
+
+                    <!-- 3 Meses -->
+                    <div class="plan-item">
+                        <span class="price">PREÇO DE R$:191,23 REAIS</span>
+                        <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1EujV1w')">COMPRAR 3 MESES DE ASSINATURA</button>
                     </div>
                 </div>
-            </div>`;
-            
-            gridLoja.innerHTML += itemGiles1 + itemGiles2;
+            </div>
+        </div>
 
-            categorias.forEach(cat => {
-                let inicio = (cat === 'aero') ? 3 : 1; 
-                for(let i = inicio; i <= 8; i++) {
-                    let n = i < 10 ? '0' + i : i;
-                    let activeClass = cat === 'aero' ? 'show' : '';
-                    let preco = 150 + (i * 10); 
-                    let nomeItem = `Produto ${n} - ${cat.toUpperCase()}`;
-                    let imgPath = `${URL_BASE}p${n}_${cat}.gif`;
-
-                    let card = `
-                    <div class="product-card ${cat} ${activeClass}">
-                        <div class="card" onclick="abrirDetalhes('${nomeItem}', '${descricoes[cat]}', ${preco}, '${imgPath}')">
-                            <img src="${imgPath}" class="product-gif" alt="Produto">
-                            <h3>${nomeItem}</h3>
-                            <p class="description">${descricoes[cat]}</p>
-                            <span class="price">R$ ${preco},00</span>
-                            <div class="btn-box" onclick="event.stopPropagation()">
-                                <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR</button>
-                                <button class="btn-style btn-add" onclick="addNoCarrinho('${nomeItem}', ${preco})">ADICIONAR AO CARRINHO</button>
-                            </div>
-                        </div>
-                    </div>`;
-                    gridLoja.innerHTML += card;
-                }
-            });
-        </script>
-
+        <!-- ABA CONTATO VENDEDOR -->
         <div class="product-card contato contato-wrapper">
             <div class="contact-box-center">
                 <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/main/imagens/imagemcontatovendedor.png" class="photo-leaf" alt="Vendedor">
-                <h1 class="pink-title">RF-Shock Flyer</h1>
+                <h1 class="pink-title">SUPORTE & VENDAS</h1>
                 <h2 class="yellow-name">RODOLFO FRANCO</h2>
                 <p class="contact-info-text">
-                    📌 Aqui você encontra "PRODUTOS" a "PRONTA ENTREGA" com "ESTOQUE" no "BRASIL" com "PRAZO de ENTREGA" de "2 SEMANAS" mais ou menos após o "ENVIO" pelos "CORREIOS" & "PRODUTOS SOB ENCOMENDA" com "PRAZO de ENTREGA" de "1 MÊS" mais ou menos pois meus "FORNECEDORES" são da "CHINA"!!! 📌
-
+                    📌 Atenção: Para você tirar qualquer dúvida sobre o Robô. Entre em contato com o vendedor clicando no BOTÃO de WHATSAPP abaixo & me envie uma mensagem de texto!!! 📌
                 </p>
-                <button onclick="abrirLinkExterno('https://chat.whatsapp.com/BVoHSuGT69T3qj1MaGOBTn?s=cl&p=a&ilr=1&amv=2');" class="btn-wa-neon-black">
+                <button onclick="abrirLinkExterno('https://chat.whatsapp.com/CIzl3eIZbPe8LstuOTPiyr');" class="btn-wa-neon-black">
                     <i class="fab fa-whatsapp" style="font-size: 35px; margin-right: 15px;"></i> CHAMAR NO WHATSAPP AGORA
                 </button>
             </div>
@@ -305,7 +450,7 @@
 
     <footer>
         <img src="https://raw.githubusercontent.com/RodolfoJF767/RF-Shock-Flyer/refs/heads/main/imagens/imgagradecimento.gif" alt="Agradecimento" class="footer-gif">
-        <p>🙏🌹 AGRADECIMENTO 🌹🙏</p>
+        <p>🙏🌹 AGRADECIMENTO & BONS TRADES 🌹🙏</p>
     </footer>
 
     <!-- MODAL DETALHES -->
@@ -314,13 +459,29 @@
             <span class="btn-close-detail" onclick="fecharDetalhes()">&times;</span>
             <img id="det-img" src="" class="detail-img">
             <h2 id="det-title" class="detail-title"></h2>
-            <p id="det-desc" class="detail-desc"></p>
-            <span id="det-price" class="detail-price"></span>
             
-            <div style="width: 550px; display: flex; flex-direction: column; gap: 10px;">
-                <button id="det-pay-btn" class="btn-style btn-pay" style="height:75px; font-size:24px;" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR</button>
-                <button id="det-add-btn" class="btn-style btn-add" style="height:65px; font-size:22px;">ADICIONAR AO CARRINHO</button>
-                <button class="btn-style btn-back-shop" onclick="fecharDetalhes()">VOLTAR</button>
+            <!-- SUBTÍTULO AZUL CIANO TAMBÉM NO MODAL -->
+            <div class="app-subtitulo" style="margin-bottom: 20px;">Aplicativo para Celulares Android</div>
+
+            <p id="det-desc" class="detail-desc"></p>
+            
+            <div style="width: 100%; display: flex; flex-direction: column; gap: 20px;">
+                <div class="plan-item">
+                    <span class="price">PREÇO DE R$:72,91 REAIS</span>
+                    <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR 1 MÊS DE ASSINATURA</button>
+                </div>
+
+                <div class="plan-item">
+                    <span class="price">PREÇO DE R$:144,56 REAIS</span>
+                    <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR 2 MESES DE ASSINATURA</button>
+                </div>
+
+                <div class="plan-item">
+                    <span class="price">PREÇO DE R$:191,23 REAIS</span>
+                    <button class="btn-style btn-pay" onclick="abrirLinkExterno('https://mpago.la/1iP5Scn')">COMPRAR 3 MESES DE ASSINATURA</button>
+                </div>
+
+                <button class="btn-style btn-back-shop" style="margin-top: 10px;" onclick="fecharDetalhes()">VOLTAR</button>
             </div>
         </div>
     </div>
@@ -344,6 +505,56 @@
     </div>
 
     <script>
+        // SCRIPT DO CARROSSEL DE DESLIZAMENTO DIRETO
+        let slideAtual = 0;
+        let slideTimer;
+
+        function mostrarSlide(indice) {
+            const track = document.getElementById('carouselSlides');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+            if (!slides.length || !track) return;
+
+            if (indice >= slides.length) slideAtual = 0;
+            else if (indice < 0) slideAtual = slides.length - 1;
+            else slideAtual = indice;
+
+            track.style.transform = `translateX(-${slideAtual * 100}%)`;
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === slideAtual);
+            });
+        }
+
+        function mudarSlide(direcao, event) {
+            if (event) event.stopPropagation();
+            mostrarSlide(slideAtual + direcao);
+            reiniciarTimerSlide();
+        }
+
+        function irParaSlide(indice, event) {
+            if (event) event.stopPropagation();
+            mostrarSlide(indice);
+            reiniciarTimerSlide();
+        }
+
+        function iniciarTimerSlide() {
+            slideTimer = setInterval(() => {
+                mostrarSlide(slideAtual + 1);
+            }, 4000);
+        }
+
+        function reiniciarTimerSlide() {
+            clearInterval(slideTimer);
+            iniciarTimerSlide();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            mostrarSlide(0);
+            iniciarTimerSlide();
+        });
+
+        // FUNÇÕES DA LOJA E CARRINHO
         function switchTab(categoryId, element) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
@@ -357,19 +568,19 @@
         function abrirDetalhes(nome, desc, preco, img) {
             document.getElementById('det-title').innerText = nome;
             document.getElementById('det-desc').innerText = desc;
-            document.getElementById('det-price').innerText = `R$ ${preco},00`;
+            document.getElementById('det-price').innerText = `A partir de R$ ${preco},00`;
             document.getElementById('det-img').src = img;
-            document.getElementById('det-add-btn').onclick = function() { addNoCarrinho(nome, preco); };
             document.getElementById('product-detail-view').style.display = 'block';
         }
 
-        function fecharDetalhes() { document.getElementById('product-detail-view').style.display = 'none'; }
+        function fecharDetalhes() { 
+            document.getElementById('product-detail-view').style.display = 'none'; 
+        }
 
-        /* FUNÇÃO ATUALIZADA COM FRASE PROFISSIONAL */
         function addNoCarrinho(nome, preco) {
             carrinho.push({nome, preco});
             atualizarCarrinho();
-            alert("RF-Shock Flyer: " + nome + " foi adicionado ao seu carrinho com sucesso!");
+            alert(nome + " foi adicionado ao seu carrinho!");
         }
 
         function atualizarCarrinho() {
@@ -380,8 +591,8 @@
             let total = 0;
             carrinho.forEach((item, index) => {
                 total += item.preco;
-                list.innerHTML += `<div style="margin-bottom:12px; font-size:18px; border-bottom:1px solid #222; padding-bottom:8px;">
-                    <span>${item.nome}</span> - <span>R$ ${item.preco},00 <i class="fas fa-trash" onclick="removerItem(${index})" style="color:red; margin-left:15px; cursor:pointer"></i></span>
+                list.innerHTML += `<div style="margin-bottom:12px; font-size:18px; border-bottom:1px solid #222; padding-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                    <span>${item.nome}</span> <span>R$ ${item.preco},00 <i class="fas fa-trash" onclick="removerItem(${index})" style="color:red; margin-left:15px; cursor:pointer"></i></span>
                 </div>`;
             });
             totalEl.innerText = `R$ ${total},00`;
